@@ -1,0 +1,39 @@
+CREATE TABLE expenseEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    amount TEXT NOT NULL,
+    category TEXT NOT NULL,
+    timestamp INTEGER NOT NULL
+);
+
+getExpenses:
+SELECT *
+FROM expenseEntity
+ORDER BY timestamp DESC;
+
+getExpenseById:
+SELECT *
+FROM expenseEntity
+WHERE id = :id;
+
+getExpensesByDate:
+SELECT *
+FROM expenseEntity
+WHERE timestamp BETWEEN :start AND :end
+ORDER BY timestamp DESC;
+
+insertExpenseEntity:
+INSERT OR REPLACE
+INTO expenseEntity(
+    id,
+    title,
+    description,
+    amount,
+    category,
+    timestamp
+) VALUES (?, ?, ?, ?, ? ,?);
+
+deleteExpense:
+DELETE FROM expenseEntity
+WHERE id = :id;
